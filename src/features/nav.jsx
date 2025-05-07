@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IoHomeOutline, IoMenu } from "react-icons/io5";
+import { IoCloseSharp, IoHomeOutline, IoMenu } from "react-icons/io5";
 import {
   LuCircleParking,
   LuSquareParking,
@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 
 const Nav = () => {
   const [hours, setHours] = useState(new Date().toLocaleTimeString());
+  const [showNav, setShowNav] = useState(false);
   const updateHours = () => {
     setHours(new Date().toLocaleTimeString());
   };
@@ -20,7 +21,7 @@ const Nav = () => {
           <LuCircleParking />
           <p className="clock">{hours}</p>
         </div>
-        <ul className="nav-links">
+        <ul className={!showNav ? "nav-links" : "show-links"}>
           <li>
             <NavLink className={"link"} to="/">
               <IoHomeOutline className="icon" />
@@ -40,8 +41,11 @@ const Nav = () => {
             </NavLink>
           </li>
         </ul>
-        <button className="mobile-menu-button">
-          <IoMenu />
+        <button
+          className="mobile-menu-button"
+          onClick={() => setShowNav((condition) => !condition)}
+        >
+          {!showNav ? <IoMenu /> : <IoCloseSharp />}
         </button>
       </div>
     </nav>

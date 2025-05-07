@@ -49,7 +49,6 @@ html {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  margin-top: 30px;
   background-color: var(--color-grey-50);
   padding: 20px;
 }
@@ -62,6 +61,8 @@ html {
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  position: relative;
+
   width: 100%;
   max-width: 450px;
 }
@@ -100,12 +101,59 @@ html {
   font-size: var(--font-size-md);
   opacity: 0.9;
 }
+.licenseError,
+.vehicleError,
+.loginEmailError,
+.loginPasswordError,
+.nameError,
+.signEmailError,
+.signPasswordError,
+.cormfirmPasswordError
+/* .successMsg  */ {
+  font-size: 1.1rem;
+  font-family: Outfit;
+  color: var(--color-red-800);
+  position: absolute;
+  right: 12%;
+  top: 56%;
+}
+.cormfirmPasswordError {
+  top: 79.5%;
+}
+.signPasswordError {
+  top: 65.5%;
+}
+.signEmailError {
+  top: 51.5%;
+}
+.nameError {
+  top: 37%;
+}
+.vehicleError {
+  top: 78%;
+}
+.loginEmailError {
+  top: 51.5%;
+}
+.loginPasswordError {
+  top: 71.5%;
+}
+.successMsg {
+  /* top: 13%; */
+  /* right: 0; */
+  padding: 0 2.5rem;
+  margin-bottom: 1rem;
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-900);
+}
 
 .parking-form,
-.leave-form,
+.leave-form {
+  padding: 30px;
+}
 .login-form,
 .signup-form {
-  padding: 30px;
+  padding: 0 30px;
 }
 
 .form-group {
@@ -181,15 +229,19 @@ html {
 .signup-link,
 .login-link {
   text-align: center;
-  margin-top: 20px;
+  margin: 2rem 0;
   font-size: var(--font-size-md);
   color: var(--color-grey-600);
 }
 
-.signup-link a,
-.login-link a {
-  color: #6e8efb;
-  text-decoration: none;
+.signup-link button,
+.login-link button {
+  color: var(--color-brand-700);
+  font-family: Outfit;
+  background-color: inherit;
+  cursor: pointer;
+  display: inline-block;
+  border: none;
   font-weight: 600;
 }
 
@@ -231,13 +283,15 @@ html {
   color: var(--color-grey-900);
 }
 
-.nav-links {
+.nav-links,
+.show-links {
   display: flex;
   gap: 2rem;
   list-style: none;
 }
 
-.nav-links a {
+.nav-links a,
+.show-links a {
   text-decoration: none;
   font-size: var(--font-size-md);
   font-family: Outfit;
@@ -254,14 +308,17 @@ html {
   font-size: var(--font-size-md);
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.show-links a:hover {
   color: var(--color-brand-500);
 }
-.nav-links a:hover .icon {
+.nav-links a:hover .icon,
+.show-links a:hover .icon {
   color: var(--color-brand-500);
 }
 
-.nav-links a::after {
+.nav-links a::after,
+.show-links a::after {
   content: "";
   position: absolute;
   bottom: -5px;
@@ -272,7 +329,8 @@ html {
   transition: width 0.3s;
 }
 
-.nav-links a:hover::after {
+.nav-links a:hover::after,
+.show-links a:hover::after {
   width: 100%;
 }
 
@@ -512,7 +570,7 @@ html {
 .contact p {
   color: var(--color-grey-600);
   font-family: Outfit;
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-xs);
   max-width: 700px;
   margin: 0 auto 3rem;
 }
@@ -543,10 +601,15 @@ html {
   margin-bottom: 0.5rem;
 }
 
-.info-item p {
+.info-item p,
+a {
   color: var(--color-grey-600);
   font-family: Outfit;
   line-height: 1.6;
+}
+.info-item a {
+  text-decoration: none;
+  font-size: var(--font-size-xs);
 }
 
 /* Responsive Design */
@@ -577,38 +640,62 @@ html {
 }
 
 @media (max-width: 768px) {
-  .nav-links {
-    display: none;
+  .nav-container {
+    position: relative;
+  }
+  .nav-links,
+  .show-links {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 2;
+    background-color: var(--color-grey-0);
+    transform: translateX(100%);
+    align-items: flex-start;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: all 0.5s ease-in;
+    padding: 2rem;
+  }
+
+  .show-links {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
   }
 
   .mobile-menu-button {
     display: block;
+    font-size: var(--font-size-md);
   }
 
   .hero-content h1 {
-    font-size: 2.5rem;
+    font-size: var(--font-size-xxl);
   }
 
   .services h2,
   .about-content h2,
   .contact h2 {
-    font-size: 2rem;
+    font-size: var(--font-size-xl);
+  }
+  .contact-info {
+    flex-direction: column;
   }
 }
 
 @media (max-width: 576px) {
-  .hero-content h1 {
-    font-size: 2rem;
-  }
-
   .hero-content p,
   .services-subtitle,
   .contact p {
-    font-size: 1rem;
+    font-size: var(--font-size-xs);
   }
 
   .stats {
     flex-direction: column;
+    justify-content: center;
     gap: 1rem;
   }
 }

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-
-const Login = () => {
+const Login = ({ setShowApp, setShowSignUp }) => {
   const [values, setValues] = useState({
     email: "",
     password: "",
   });
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
@@ -13,21 +13,27 @@ const Login = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const { email, password } = values;
-    if (!email) return alert("Please enter your email address");
-    if (!password) return alert("Please enter your password");
+    if (!email) return setEmailError("Please enter your email address");
+    setEmailError("");
+    if (!password) return setPasswordError("Please enter your password");
+    setPasswordError("");
     let userData = JSON.parse(localStorage.getItem("userData"));
     if (!userData) return alert("No user data found. Please sign up first.");
     const user = userData.find((user) => user.email === email);
     const { password: userPassword } = user;
-    if (!user) return alert("Invalid email ");
-    if (userPassword !== password) return alert("Invalid password");
-    toast.success("Login successful!");
+    if (!user) return setEmailError("Invalid email");
+    setEmailError("");
+    if (userPassword !== password) return setPasswordError("Wrong password!");
+    setPasswordError("");
     setValues({ email: "", password: "" });
+
+    setShowApp(true);
   };
   return (
     <div className="login-container">
-      <ToastContainer position="top-center" />
       <div className="login-card">
+        <p className="loginEmailError">{emailError}</p>
+        <p className="loginPasswordError">{passwordError}</p>
         <div className="welcome-section">
           <h1>Welcome Back!</h1>
           <p>Park with ease and convenience. Login to manage your parking.</p>
@@ -43,6 +49,11 @@ const Login = () => {
               onChange={handleChange}
               placeholder="Enter your email"
               className="form-input"
+              style={
+                emailError.length > 0
+                  ? { border: "1px solid  #991b1b" }
+                  : { border: "1px solid  #d1d5db" }
+              }
             />
           </div>
 
@@ -55,19 +66,24 @@ const Login = () => {
               onChange={handleChange}
               placeholder="Enter your password"
               className="form-input"
+              style={
+                passwordError.length > 0
+                  ? { border: "1px solid  #1a1616" }
+                  : { border: "1px solid  #d1d5db" }
+              }
             />
           </div>
 
           <button type="submit" className="login-button">
             Login
           </button>
-
-          <div className="signup-link">
-            <p>
-              Don't have an account? <a href="/signup">Sign up</a>
-            </p>
-          </div>
         </form>
+        <div className="signup-link">
+          <p className="switch">
+            Don't have an account?
+            <button onClick={() => setShowSignUp(true)}>Sign up</button>
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -121,14 +121,16 @@ const Home = () => {
               <FaPhoneAlt size={32} />
               <div>
                 <h4>Phone</h4>
-                <p>+1 (256) 742083075</p>
+                <p>+ (256) 742083075</p>
               </div>
             </div>
             <div className="info-item">
               <MdMarkEmailRead size={32} />
               <div>
                 <h4>Email</h4>
-                <p>munirsebikaaka@gmail.com</p>
+                <a href="mailto:info@munirsebikaaka@gmail.com">
+                  munirsebikaaka@gmail.com
+                </a>
               </div>
             </div>
           </div>

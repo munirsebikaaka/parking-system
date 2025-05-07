@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-
-const Signup = () => {
+const SignUp = ({ setShowSignUp }) => {
   const [values, setValues] = useState({
     fullname: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const [nameError, setNameError] = useState("");
+  const [signEmailError, setSignEmailError] = useState("");
+  const [signPasswordError, setSignPasswordError] = useState("");
+  const [cormfirmPasswordError, setComfirmPasswordError] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
@@ -15,15 +18,25 @@ const Signup = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const { fullname, email, password, confirmPassword } = values;
-    if (!fullname) return alert("Please enter your full name");
-    if (!email) return alert("Please enter your email address");
-    if (!password) return alert("Please enter your password");
-    if (!confirmPassword) return alert("Please confirm your password");
-    if (password !== confirmPassword) return alert("Passwords do not match");
+    if (!fullname) return setNameError("Please enter your full name");
+    setNameError("");
+    if (!email) return setSignEmailError("Please enter your email address");
+    setSignEmailError("");
+    if (!password) return setSignPasswordError("Please enter your password");
+    setSignPasswordError("");
     if (password.length < 6)
-      return alert("Password must be at least 6 characters long");
+      return setSignPasswordError(
+        "Password must be at least 6 characters long"
+      );
+    setSignPasswordError("");
+    if (!confirmPassword)
+      return setComfirmPasswordError("Please confirm your password");
+    setComfirmPasswordError("");
+    if (password !== confirmPassword)
+      return setComfirmPasswordError("Passwords do not match");
+    setComfirmPasswordError("");
+
     let userData = [];
-    // localStorage.setItem("userData", JSON.stringify(userData));
     userData = JSON.parse(localStorage.getItem("userData")) || [];
     userData.push({
       fullname: fullname,
@@ -38,12 +51,14 @@ const Signup = () => {
       password: "",
       confirmPassword: "",
     });
-    toast.success("Account created successfully!");
   };
   return (
     <div className="signup-container">
-      <ToastContainer position="top-center" />
       <div className="signup-card">
+        <p className="nameError">{nameError}</p>
+        <p className="signEmailError">{signEmailError}</p>
+        <p className="signPasswordError">{signPasswordError}</p>
+        <p className="cormfirmPasswordError">{cormfirmPasswordError}</p>
         <div className="signup-header">
           <h1>Create Account</h1>
           <p>
@@ -61,6 +76,11 @@ const Signup = () => {
               onChange={handleChange}
               placeholder="Enter your full name"
               className="form-input"
+              style={
+                nameError.length > 0
+                  ? { border: "1px solid  #991b1b" }
+                  : { border: "1px solid  #d1d5db" }
+              }
             />
           </div>
 
@@ -73,6 +93,11 @@ const Signup = () => {
               onChange={handleChange}
               placeholder="Enter your email"
               className="form-input"
+              style={
+                signEmailError.length > 0
+                  ? { border: "1px solid  #991b1b" }
+                  : { border: "1px solid  #d1d5db" }
+              }
             />
           </div>
 
@@ -85,6 +110,11 @@ const Signup = () => {
               onChange={handleChange}
               placeholder="Create a password"
               className="form-input"
+              style={
+                signPasswordError.length > 0
+                  ? { border: "1px solid  #991b1b" }
+                  : { border: "1px solid  #d1d5db" }
+              }
             />
           </div>
 
@@ -97,22 +127,27 @@ const Signup = () => {
               onChange={handleChange}
               placeholder="Confirm your password"
               className="form-input"
+              style={
+                cormfirmPasswordError.length > 0
+                  ? { border: "1px solid  #991b1b" }
+                  : { border: "1px solid  #d1d5db" }
+              }
             />
           </div>
 
           <button type="submit" className="signup-button">
             Sign Up
           </button>
-
-          <div className="login-link">
-            <p>
-              Already have an account? <a href="/login">Login</a>
-            </p>
-          </div>
         </form>
+        <div className="login-link">
+          <p className="switch">
+            Already have an account?
+            <button onClick={() => setShowSignUp(false)}>Login</button>
+          </p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default SignUp;

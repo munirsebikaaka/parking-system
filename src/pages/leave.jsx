@@ -7,6 +7,10 @@ const LeaveParking = () => {
     license: "",
     vehicleType: "",
   });
+
+  const [vehicleTypeErorr, setVehicleTypeError] = useState("");
+  const [licenseErorr, setLicenseError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
   const parkingData = JSON.parse(localStorage.getItem("parkingData")) || [];
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,8 +44,12 @@ const LeaveParking = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const { license, vehicleType } = values;
-    if (!license) return alert("Please enter your license plate number");
-    if (!vehicleType) return alert("Please enter your vehicle type");
+    if (!license)
+      return setLicenseError("Please enter your license plate number");
+    setLicenseError("");
+    if (!vehicleType)
+      return setVehicleTypeError("Please enter your vehicle type");
+    setVehicleTypeError("");
     parkingData;
     const data = parkingData.find((el) => el.license === license);
     if (!data) return alert("No parking data found for this license plate");
@@ -61,7 +69,6 @@ const LeaveParking = () => {
     }
     if (isDayTime && data.vehicleType === "car") {
       parkingCost = minutesPassed * 2;
-      console.log("daytime car", parkingCost);
     } else if (isNightTime && data.vehicleType === "car") {
       parkingCost = minutesPassed * 1;
     }
@@ -78,50 +85,69 @@ const LeaveParking = () => {
       license: "",
       vehicleType: "",
     });
-    alert(
+    setSuccessMsg(
       `You have parked for ${minutesPassed} minutes. Your parking cost is $${parkingCost}. Thank you for using our service!`
     );
     toast.success("Exit parking successfully!");
   };
   return (
-    <div className="leave-container">
-      <ToastContainer position="top-center" />
+    <div>
       <Nav />
-      <div className="leave-card">
-        <div className="leave-header">
-          <h1>Exit Parking</h1>
-          <p>Provide your details to complete the parking session.</p>
+      <div className="leave-container">
+        <ToastContainer
+          position="top-center"
+          style={{ fontSize: "1px", fontFamily: "Outfit" }}
+        />
+
+        <div className="leave-card">
+          <p className="vehicleError">{vehicleTypeErorr}</p>
+          <p className="licenseError">{licenseErorr}</p>
+          <div className="leave-header">
+            <h1>Exit Parking</h1>
+            <p>Provide your details to complete the parking session.</p>
+          </div>
+
+          <form className="leave-form" onSubmit={onSubmitHandler}>
+            <div className="form-group">
+              <label htmlFor="license">License Plate Number</label>
+              <input
+                type="text"
+                name="license"
+                value={values.license}
+                onChange={handleChange}
+                placeholder="Enter license plate"
+                className="form-input"
+                style={
+                  licenseErorr.length > 0
+                    ? { border: "1px solid  #991b1b" }
+                    : { border: "1px solid  #d1d5db" }
+                }
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="parking-id">Vehicle type</label>
+              <input
+                type="text"
+                name="vehicleType"
+                value={values.vehicleType}
+                onChange={handleChange}
+                placeholder="vehicle type"
+                className="form-input"
+                style={
+                  vehicleTypeErorr.length > 0
+                    ? { border: "1px solid  #991b1b" }
+                    : { border: "1px solid  #d1d5db" }
+                }
+              />
+            </div>
+
+            <button type="submit" className="leave-button">
+              Exit Parking
+            </button>
+          </form>
+          <p className="successMsg">{successMsg}</p>
         </div>
-
-        <form className="leave-form" onSubmit={onSubmitHandler}>
-          <div className="form-group">
-            <label htmlFor="license">License Plate Number</label>
-            <input
-              type="text"
-              name="license"
-              value={values.license}
-              onChange={handleChange}
-              placeholder="Enter license plate"
-              className="form-input"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="parking-id">Vehicle type</label>
-            <input
-              type="text"
-              name="vehicleType"
-              value={values.vehicleType}
-              onChange={handleChange}
-              placeholder="vehicle type"
-              className="form-input"
-            />
-          </div>
-
-          <button type="submit" className="leave-button">
-            Exit Parking
-          </button>
-        </form>
       </div>
     </div>
   );
