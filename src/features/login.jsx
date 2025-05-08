@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 const Login = ({ setShowApp, setShowSignUp }) => {
   const [values, setValues] = useState({
     email: "",
@@ -6,6 +7,7 @@ const Login = ({ setShowApp, setShowSignUp }) => {
   });
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
@@ -34,6 +36,17 @@ const Login = ({ setShowApp, setShowSignUp }) => {
       <div className="login-card">
         <p className="loginEmailError">{emailError}</p>
         <p className="loginPasswordError">{passwordError}</p>
+        {!showPassword ? (
+          <FaEye
+            className="signupEyeLogin"
+            onClick={() => setShowPassword(true)}
+          />
+        ) : (
+          <FaEyeSlash
+            className="signupEyeHideLogin"
+            onClick={() => setShowPassword(false)}
+          />
+        )}
         <div className="welcome-section">
           <h1>Welcome Back!</h1>
           <p>Park with ease and convenience. Login to manage your parking.</p>
@@ -60,7 +73,7 @@ const Login = ({ setShowApp, setShowSignUp }) => {
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
-              type="password"
+              type={!showPassword ? "password" : "text"}
               name="password"
               value={values.password}
               onChange={handleChange}

@@ -10,6 +10,7 @@ const Parking = () => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const { license, vehicleType } = values;

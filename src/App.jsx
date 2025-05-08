@@ -7,7 +7,7 @@ import Parking from "./pages/parking";
 import { useState } from "react";
 
 function App() {
-  const [showApp, setShowApp] = useState(true);
+  const [showApp, setShowApp] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
 
   return (

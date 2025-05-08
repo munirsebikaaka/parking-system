@@ -1,4 +1,12 @@
 import React, { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import {
+  isLowerCaseAdded,
+  isNumsAdded,
+  isSymbolsAdded,
+  isUpperCaseAdded,
+} from "../services/passwordStrength/passwordStrength";
+
 const SignUp = ({ setShowSignUp }) => {
   const [values, setValues] = useState({
     fullname: "",
@@ -6,10 +14,13 @@ const SignUp = ({ setShowSignUp }) => {
     password: "",
     confirmPassword: "",
   });
+
   const [nameError, setNameError] = useState("");
   const [signEmailError, setSignEmailError] = useState("");
   const [signPasswordError, setSignPasswordError] = useState("");
   const [cormfirmPasswordError, setComfirmPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,18 +31,39 @@ const SignUp = ({ setShowSignUp }) => {
     const { fullname, email, password, confirmPassword } = values;
     if (!fullname) return setNameError("Please enter your full name");
     setNameError("");
+
     if (!email) return setSignEmailError("Please enter your email address");
     setSignEmailError("");
+
     if (!password) return setSignPasswordError("Please enter your password");
     setSignPasswordError("");
+
     if (password.length < 6)
       return setSignPasswordError(
         "Password must be at least 6 characters long"
       );
     setSignPasswordError("");
+
+    if (!isLowerCaseAdded(values.password)) return;
+    setSignPasswordError("please add lower case into the password");
+    setSignPasswordError("");
+
+    if (!isUpperCaseAdded(values.password)) return;
+    setSignPasswordError("please add upper case into the password");
+    setSignPasswordError("");
+
+    if (!isNumsAdded(values.password))
+      return setSignPasswordError("please add number into the password");
+    setSignPasswordError("");
+
+    if (!isSymbolsAdded(values.password))
+      setSignPasswordError("please add symbol into the password");
+    setSignPasswordError("");
+
     if (!confirmPassword)
       return setComfirmPasswordError("Please confirm your password");
     setComfirmPasswordError("");
+
     if (password !== confirmPassword)
       return setComfirmPasswordError("Passwords do not match");
     setComfirmPasswordError("");
@@ -58,6 +90,26 @@ const SignUp = ({ setShowSignUp }) => {
         <p className="nameError">{nameError}</p>
         <p className="signEmailError">{signEmailError}</p>
         <p className="signPasswordError">{signPasswordError}</p>
+        {!showPassword ? (
+          <FaEye className="signupEye" onClick={() => setShowPassword(true)} />
+        ) : (
+          <FaEyeSlash
+            className="signupEyeHide"
+            onClick={() => setShowPassword(false)}
+          />
+        )}
+        {!showPasswordRepeat ? (
+          <FaEye
+            className="signupEyeRepeat"
+            onClick={() => setShowPasswordRepeat(true)}
+          />
+        ) : (
+          <FaEyeSlash
+            className="signupEyeHideRepeat"
+            onClick={() => setShowPasswordRepeat(false)}
+          />
+        )}
+
         <p className="cormfirmPasswordError">{cormfirmPasswordError}</p>
         <div className="signup-header">
           <h1>Create Account</h1>
@@ -104,7 +156,7 @@ const SignUp = ({ setShowSignUp }) => {
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={values.password}
               onChange={handleChange}
@@ -121,7 +173,7 @@ const SignUp = ({ setShowSignUp }) => {
           <div className="form-group">
             <label htmlFor="confirm-password">Confirm Password</label>
             <input
-              type="password"
+              type={showPasswordRepeat ? "text" : "password"}
               name="confirmPassword"
               value={values.confirmPassword}
               onChange={handleChange}

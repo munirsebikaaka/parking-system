@@ -108,14 +108,29 @@ html {
 .nameError,
 .signEmailError,
 .signPasswordError,
-.cormfirmPasswordError
-/* .successMsg  */ {
+.cormfirmPasswordError,
+.signupEye,
+.signupEyeHide,
+.signupEyeRepeat,
+.signupEyeHideRepeat {
   font-size: 1.1rem;
   font-family: Outfit;
   color: var(--color-red-800);
   position: absolute;
   right: 12%;
   top: 56%;
+}
+.signupEye,
+.signupEyeHide,
+.signupEyeRepeat,
+.signupEyeHideRepeat {
+  font-size: var(--font-size-xl);
+  color: var(--color-grey-500);
+  top: 60%;
+}
+.signupEyeRepeat,
+.signupEyeHideRepeat {
+  top: 75%;
 }
 .cormfirmPasswordError {
   top: 79.5%;
