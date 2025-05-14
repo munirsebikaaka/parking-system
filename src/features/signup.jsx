@@ -22,6 +22,13 @@ const SignUp = ({ setShowSignUp }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
+  const str = "qfdsg";
+  const test = () => {
+    if (isLowerCaseAdded(str)) alert("lower case added");
+    else alert("no its not added");
+  };
+  test();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });

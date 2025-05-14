@@ -5,9 +5,10 @@ import Login from "./features/login";
 import SignUp from "./features/signup";
 import Parking from "./pages/parking";
 import { useState } from "react";
+import Garage from "./pages/garage";
 
 function App() {
-  const [showApp, setShowApp] = useState(false);
+  const [showApp, setShowApp] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
 
   return (
@@ -26,6 +27,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/parking" element={<Parking />} />
             <Route path="/leaveParking" element={<LeaveParking />} />
+            <Route path="/garage" element={<Garage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </BrowserRouter>
       )}

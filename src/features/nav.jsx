@@ -40,6 +40,12 @@ const Nav = () => {
               Leave Parking
             </NavLink>
           </li>
+          <li>
+            <NavLink className={"link"} to="/garage">
+              <LuSquareParkingOff className="icon" />
+              garage
+            </NavLink>
+          </li>
         </ul>
         <button
           className="mobile-menu-button"
