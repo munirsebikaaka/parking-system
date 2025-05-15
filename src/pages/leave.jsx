@@ -3,10 +3,7 @@ import Nav from "../features/nav";
 import { toast, ToastContainer } from "react-toastify";
 
 const LeaveParking = () => {
-  const [values, setValues] = useState({
-    license: "",
-    vehicleType: "",
-  });
+  const [values, setValues] = useState({ license: "" });
 
   const [vehicleTypeErorr, setVehicleTypeError] = useState("");
   const [licenseErorr, setLicenseError] = useState("");
@@ -21,17 +18,6 @@ const LeaveParking = () => {
       (el) => el.license === values.license
     )?.startTime;
     return startTime;
-  };
-  const startPark = () => {
-    if (!startTime()) return "nothing";
-    const currentTime = new Date(startTime()).getHours();
-    console.log(currentTime);
-  };
-
-  const endTime = () => {
-    const endTime = new Date();
-    const endHour = endTime.getHours();
-    return endHour;
   };
 
   const calculateMinutesPassed = () => {
@@ -52,7 +38,7 @@ const LeaveParking = () => {
     return startHour >= 18 || startHour < 6;
   };
 
-  const countMoneyPaidPerVehicleAccordingToTimeSpentAndShift = (
+  const countMoneyPaid = (
     data,
     vehicle,
     nightExtraPay,
@@ -80,6 +66,7 @@ const LeaveParking = () => {
       console.log(
         `u hv spent ${minutesPassed} minutes, u gona pay ${parkingCoast}`
       );
+      toast.success("Exit confirmed successfully!");
     } else if (
       isDayTime &&
       startParkingTime >= 18 &&
@@ -101,6 +88,7 @@ const LeaveParking = () => {
       console.log(
         `u hv spent ${minutesPassed} minutes, u gona pay ${parkingCoast}`
       );
+      toast.success("Exit confirmed successfully!");
     } else if (
       isDayTime &&
       startParkingTime < 6 &&
@@ -122,6 +110,7 @@ const LeaveParking = () => {
       console.log(
         `u hv spent ${minutesPassed} minutes, u gona pay ${parkingCoast}`
       );
+      toast.success("Exit confirmed successfully!");
     } else if (
       isNightTime &&
       startParkingTime >= 18 &&
@@ -140,6 +129,7 @@ const LeaveParking = () => {
       console.log(
         `u hv spent ${minutesPassed} minutes, u gona pay ${parkingCoast}`
       );
+      toast.success("Exit confirmed successfully!");
     } else if (
       isNightTime &&
       startParkingTime >= 6 &&
@@ -147,9 +137,8 @@ const LeaveParking = () => {
       data.vehicleType === vehicle
     ) {
       const timeBeforeNightTime = 18 - startParkingTime;
-      const timeBeforeNightTimeMinutes = timeBeforeNightTime * 60;
+      const timeBeforeNightTimeMinutes = Math.abs(timeBeforeNightTime * 60);
       const extraMinutes = minutesPassed - timeBeforeNightTimeMinutes;
-
       if (extraMinutes > 0) {
         const extraParkingCost = extraMinutes * nightExtraPay;
         const parkingShiftTimeCost =
@@ -162,47 +151,27 @@ const LeaveParking = () => {
       console.log(
         `u hv spent ${minutesPassed} minutes, u gona pay ${parkingCoast}`
       );
+      toast.success("Exit confirmed successfully!");
     }
   };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    const { license, vehicleType } = values;
+    const { license } = values;
+    if (!license) return;
     const data = parkingData.find((el) => el.license === license);
+
     if (data) {
-      countMoneyPaidPerVehicleAccordingToTimeSpentAndShift(
-        data,
-        "truck",
-        2,
-        3,
-        3,
-        2
-      );
-      countMoneyPaidPerVehicleAccordingToTimeSpentAndShift(
-        data,
-        "car",
-        1,
-        2,
-        2,
-        1
-      );
-      countMoneyPaidPerVehicleAccordingToTimeSpentAndShift(
-        data,
-        "motorcycle",
-        0.5,
-        1,
-        1,
-        0.5
-      );
+      countMoneyPaid(data, "truck", 2, 3, 3, 2);
+      countMoneyPaid(data, "car", 1, 2, 2, 1);
+      countMoneyPaid(data, "motorcycle", 0.5, 1, 1, 0.5);
     } else {
       setLicenseError("License plate not found");
-      toast.error("License plate not found");
     }
   };
 
   return (
     <div>
-      <Nav />
       <div className="leave-container">
         <ToastContainer
           position="top-center"
@@ -210,7 +179,6 @@ const LeaveParking = () => {
         />
 
         <div className="leave-card">
-          <p className="vehicleError">{vehicleTypeErorr}</p>
           <p className="licenseError">{licenseErorr}</p>
           <div className="leave-header">
             <h1>Exit Parking</h1>
@@ -229,23 +197,6 @@ const LeaveParking = () => {
                 className="form-input"
                 style={
                   licenseErorr.length > 0
-                    ? { border: "1px solid  #991b1b" }
-                    : { border: "1px solid  #d1d5db" }
-                }
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="parking-id">Vehicle type</label>
-              <input
-                type="text"
-                name="vehicleType"
-                value={values.vehicleType}
-                onChange={handleChange}
-                placeholder="vehicle type"
-                className="form-input"
-                style={
-                  vehicleTypeErorr.length > 0
                     ? { border: "1px solid  #991b1b" }
                     : { border: "1px solid  #d1d5db" }
                 }

@@ -34,8 +34,6 @@ const Parking = () => {
   };
   return (
     <div>
-      <Nav />
-
       <div className="parking-container">
         <ToastContainer
           position="top-center"

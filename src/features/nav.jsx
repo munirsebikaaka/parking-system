@@ -8,20 +8,10 @@ import {
 import { NavLink } from "react-router-dom";
 
 const Nav = () => {
-  const [hours, setHours] = useState(new Date().toLocaleTimeString());
-  const [showNav, setShowNav] = useState(false);
-  const updateHours = () => {
-    setHours(new Date().toLocaleTimeString());
-  };
-  setInterval(updateHours, 1000);
   return (
     <nav className="navbar">
       <div className="nav-container">
-        <div className="logo">
-          <LuCircleParking />
-          <p className="clock">{hours}</p>
-        </div>
-        <ul className={!showNav ? "nav-links" : "show-links"}>
+        <ul>
           <li>
             <NavLink className={"link"} to="/">
               <IoHomeOutline className="icon" />
@@ -47,12 +37,7 @@ const Nav = () => {
             </NavLink>
           </li>
         </ul>
-        <button
-          className="mobile-menu-button"
-          onClick={() => setShowNav((condition) => !condition)}
-        >
-          {!showNav ? <IoMenu /> : <IoCloseSharp />}
-        </button>
+        <button className="mobile-menu-button"></button>
       </div>
     </nav>
   );

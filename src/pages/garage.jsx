@@ -7,7 +7,6 @@ const Garage = () => {
   console.log(parkedVehicles);
   return (
     <div className="garage-container">
-      <Nav />
       <h1>Garage</h1>
       <p>Welcome to the garage page!</p>
       {parkedVehicles.length > 0 ? (
