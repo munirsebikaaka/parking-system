@@ -6,8 +6,9 @@ import {
   isSymbolsAdded,
   isUpperCaseAdded,
 } from "../services/passwordStrength/passwordStrength";
+import { NavLink } from "react-router-dom";
 
-const SignUp = ({ setShowSignUp }) => {
+const SignUp = () => {
   const [values, setValues] = useState({
     fullname: "",
     email: "",
@@ -21,13 +22,6 @@ const SignUp = ({ setShowSignUp }) => {
   const [cormfirmPasswordError, setComfirmPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
-
-  const str = "qfdsg";
-  const test = () => {
-    if (isLowerCaseAdded(str)) alert("lower case added");
-    else alert("no its not added");
-  };
-  test();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,22 +45,6 @@ const SignUp = ({ setShowSignUp }) => {
       );
     setSignPasswordError("");
 
-    if (!isLowerCaseAdded(values.password)) return;
-    setSignPasswordError("please add lower case into the password");
-    setSignPasswordError("");
-
-    if (!isUpperCaseAdded(values.password)) return;
-    setSignPasswordError("please add upper case into the password");
-    setSignPasswordError("");
-
-    if (!isNumsAdded(values.password))
-      return setSignPasswordError("please add number into the password");
-    setSignPasswordError("");
-
-    if (!isSymbolsAdded(values.password))
-      setSignPasswordError("please add symbol into the password");
-    setSignPasswordError("");
-
     if (!confirmPassword)
       return setComfirmPasswordError("Please confirm your password");
     setComfirmPasswordError("");
@@ -82,6 +60,8 @@ const SignUp = ({ setShowSignUp }) => {
       email: email,
       password: password,
       confirmPassword: confirmPassword,
+      accountID: `${email}${Math.random() * 10}${new Date().toISOString()}`,
+      managerCode: email.slice(0, 7) == "0742256" && email.slice(0, 7),
     });
     localStorage.setItem("userData", JSON.stringify(userData));
     setValues({
@@ -201,7 +181,9 @@ const SignUp = ({ setShowSignUp }) => {
         <div className="login-link">
           <p className="switch">
             Already have an account?
-            <button onClick={() => setShowSignUp(false)}>Login</button>
+            <NavLink to="/" className="login-link">
+              Login
+            </NavLink>
           </p>
         </div>
       </div>

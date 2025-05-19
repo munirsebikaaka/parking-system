@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { IoCloseSharp, IoHomeOutline, IoMenu } from "react-icons/io5";
 import {
   LuCircleParking,
@@ -8,6 +8,21 @@ import {
 import { NavLink } from "react-router-dom";
 
 const Nav = () => {
+  const [showLeaveParking, setShowLeaveParking] = useState(false);
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData") || "[]");
+
+    const logedInEmail = localStorage.getItem("logedInEmail");
+    const user = userData?.find((user) => user.email === logedInEmail);
+    const managerCode = localStorage.getItem("managerCode");
+
+    if (user) {
+      if (user.managerCode === managerCode) {
+        setShowLeaveParking(true);
+      }
+    }
+  }, []);
+
   return (
     <nav className="navbar">
       <div className="nav-container">
@@ -24,16 +39,31 @@ const Nav = () => {
               Parking
             </NavLink>
           </li>
-          <li>
+          {showLeaveParking && (
+            <li>
+              <NavLink className={"link"} to="/leaveParking">
+                <LuCircleParking className="icon" />
+                Leave Parking
+              </NavLink>
+            </li>
+          )}
+          {/* <li>
             <NavLink className={"link"} to="/leaveParking">
-              <LuSquareParkingOff className="icon" />
+              <LuCircleParking className="icon" />
               Leave Parking
             </NavLink>
-          </li>
+          </li> */}
+
           <li>
             <NavLink className={"link"} to="/garage">
               <LuSquareParkingOff className="icon" />
-              garage
+              Garage
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className={"link"} to="/account">
+              <LuSquareParkingOff className="icon" />
+              Account
             </NavLink>
           </li>
         </ul>

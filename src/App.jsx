@@ -6,22 +6,42 @@ import SignUp from "./features/signup";
 import Parking from "./pages/parking";
 import Garage from "./pages/garage";
 import Applayout from "./ui/applayout";
-import Dashboard from "./ui/dashbord";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [showApp, setShowApp] = useState(false);
+  useEffect(() => {
+    if (showApp) {
+      localStorage.setItem("showApp", true);
+    }
+  }, [showApp]);
+  useEffect(() => {
+    const showApp = localStorage.getItem("showApp");
+    if (showApp) {
+      setShowApp(true);
+    }
+  }, []);
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route element={<Applayout />}>
+          <Route
+            path="/"
+            element={
+              showApp ? (
+                <Applayout />
+              ) : (
+                <Login setShowApp={setShowApp} setShowSignUp={setShowApp} />
+              )
+            }
+          >
             <Route index element={<Navigate replace to={"home"} />} />
             <Route path="home" element={<Home />} />
             <Route path="parking" element={<Parking />} />
             <Route path="leaveParking" element={<LeaveParking />} />
             <Route path="garage" element={<Garage />} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<SignUp />} />
           </Route>
+          <Route path="signup" element={<SignUp setShowApp={setShowApp} />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-const Login = ({ setShowApp, setShowSignUp }) => {
+import { NavLink } from "react-router-dom";
+const Login = ({ setShowApp }) => {
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -17,17 +18,21 @@ const Login = ({ setShowApp, setShowSignUp }) => {
     const { email, password } = values;
     if (!email) return setEmailError("Please enter your email address");
     setEmailError("");
-    if (!password) return setPasswordError("Please enter your password");
-    setPasswordError("");
+    // if (!password) return setPasswordError("Please enter your password");
+    // setPasswordError("");
     let userData = JSON.parse(localStorage.getItem("userData"));
     if (!userData) return alert("No user data found. Please sign up first.");
     const user = userData.find((user) => user.email === email);
-    const { password: userPassword } = user;
+
     if (!user) return setEmailError("Invalid email");
+    const { password: userPassword, managerCode } = user;
+
+    localStorage.setItem("managerCode", managerCode);
+    localStorage.setItem("logedInEmail", user.email);
     setEmailError("");
-    if (userPassword !== password) return setPasswordError("Wrong password!");
-    setPasswordError("");
-    setValues({ email: "", password: "" });
+    // if (userPassword !== password) return setPasswordError("Wrong password!");
+    // setPasswordError("");
+    // setValues({ email: "", password: "" });
 
     setShowApp(true);
   };
@@ -94,7 +99,9 @@ const Login = ({ setShowApp, setShowSignUp }) => {
         <div className="signup-link">
           <p className="switch">
             Don't have an account?
-            <button onClick={() => setShowSignUp(true)}>Sign up</button>
+            <NavLink to="/signup" className="signup-link">
+              Sign up
+            </NavLink>
           </p>
         </div>
       </div>
