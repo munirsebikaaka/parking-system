@@ -5,7 +5,12 @@ import {
   LuSquareParking,
   LuSquareParkingOff,
 } from "react-icons/lu";
+import "../uniqueStyles/nav.css";
 import { NavLink } from "react-router-dom";
+import { TbDoorExit } from "react-icons/tb";
+import { MdAccountCircle } from "react-icons/md";
+import { FaTruck } from "react-icons/fa6";
+import { BiSolidParking } from "react-icons/bi";
 
 const Nav = () => {
   const [showLeaveParking, setShowLeaveParking] = useState(false);
@@ -24,52 +29,58 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className="navbar">
-      <div className="nav-container">
+    <div className="navbar">
+      <div className="logo-cell">
+        {/* <p className="logo"> */}
+        <BiSolidParking className="logo" />
+        {/* </p> */}
+        <h1 className="name">Park Easy</h1>
+      </div>
+      <nav className="nav-container">
         <ul>
           <li>
             <NavLink className={"link"} to="/">
-              <IoHomeOutline className="icon" />
+              {/* <IoHomeOutline className="icon" /> */}
               Home
             </NavLink>
           </li>
           <li>
             <NavLink className={"link"} to="/parking">
-              <LuSquareParking className="icon" />
-              Parking
+              {/* <FaTruck className="icon" /> */}
+              park vehicle
             </NavLink>
           </li>
           {showLeaveParking && (
             <li>
               <NavLink className={"link"} to="/leaveParking">
-                <LuCircleParking className="icon" />
-                Leave Parking
+                {/* <TbDoorExit className="icon" /> */}
+                exit park
               </NavLink>
             </li>
           )}
-          {/* <li>
-            <NavLink className={"link"} to="/leaveParking">
-              <LuCircleParking className="icon" />
-              Leave Parking
-            </NavLink>
-          </li> */}
-
           <li>
             <NavLink className={"link"} to="/garage">
-              <LuSquareParkingOff className="icon" />
-              Garage
+              {/* <LuSquareParking className="icon" /> */}
+              parking
             </NavLink>
           </li>
           <li>
             <NavLink className={"link"} to="/account">
-              <LuSquareParkingOff className="icon" />
+              {/* <MdAccountCircle className="icon" /> */}
               Account
             </NavLink>
           </li>
         </ul>
         <button className="mobile-menu-button"></button>
+      </nav>
+      <div className="profile">
+        <div className="difault">
+          <h2>m</h2>
+          <h2>s</h2>
+        </div>
+        {/* <p className="time">time hour</p> */}
       </div>
-    </nav>
+    </div>
   );
 };
 export default Nav;

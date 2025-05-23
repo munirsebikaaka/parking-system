@@ -7,6 +7,8 @@ import {
   isUpperCaseAdded,
 } from "../services/passwordStrength/passwordStrength";
 import { NavLink } from "react-router-dom";
+import "../uniqueStyles/forms.css";
+import { toast, ToastContainer } from "react-toastify";
 
 const SignUp = () => {
   const [values, setValues] = useState({
@@ -70,9 +72,14 @@ const SignUp = () => {
       password: "",
       confirmPassword: "",
     });
+    toast.success("Account created successfully!");
   };
   return (
     <div className="signup-container">
+      <ToastContainer
+        position="top-right"
+        style={{ fontSize: "16px", fontFamily: "Outfit" }}
+      />
       <div className="signup-card">
         <p className="nameError">{nameError}</p>
         <p className="signEmailError">{signEmailError}</p>

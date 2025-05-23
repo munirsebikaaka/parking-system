@@ -1,0 +1,216 @@
+.parking-container,
+.leave-container,
+.login-container,
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color-grey-50);
+  /* padding: 20px; */
+}
+
+.parking-card,
+.leave-card,
+.login-card,
+.signup-card {
+  background: var(--color-grey-0);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+
+  width: 100%;
+  max-width: 450px;
+}
+
+.parking-header,
+.leave-header,
+.welcome-section,
+.signup-header {
+  padding: 10px 20px;
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-500),
+    var(--color-brand-700)
+  );
+  text-align: center;
+}
+
+.parking-header h1,
+.leave-header h1,
+.welcome-section h1,
+.signup-header h1 {
+  font-family: Outfit;
+  color: var(--color-grey-0);
+  margin: 0;
+  font-size: 2.8rem;
+  font-weight: 700;
+}
+
+.parking-header p,
+.leave-header p,
+.welcome-section p,
+.signup-header p {
+  margin: 10px 0 0;
+  font-family: Outfit;
+  color: var(--color-grey-0);
+  font-size: var(--font-size-md);
+  opacity: 0.9;
+}
+.licenseError,
+.vehicleError,
+.loginEmailError,
+.loginPasswordError,
+.nameError,
+.signEmailError,
+.signPasswordError,
+.cormfirmPasswordError,
+.signupEye,
+.signupEyeHide,
+.signupEyeRepeat,
+.signupEyeHideRepeat {
+  font-size: 1.1rem;
+  font-family: Outfit;
+  color: var(--color-red-800);
+  position: absolute;
+  right: 12%;
+  top: 56%;
+}
+.signupEye,
+.signupEyeHide,
+.signupEyeRepeat,
+.signupEyeHideRepeat {
+  font-size: var(--font-size-xl);
+  color: var(--color-grey-500);
+  top: 60%;
+}
+.signupEyeRepeat,
+.signupEyeHideRepeat {
+  top: 75%;
+}
+.cormfirmPasswordError {
+  top: 79.5%;
+}
+.signPasswordError {
+  top: 65.5%;
+}
+.signEmailError {
+  top: 51.5%;
+}
+.nameError {
+  top: 37%;
+}
+.vehicleError {
+  top: 78%;
+}
+.loginEmailError {
+  top: 51.5%;
+}
+.loginPasswordError {
+  top: 71.5%;
+}
+.successMsg {
+  padding: 0 2.5rem;
+  margin-bottom: 1rem;
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-900);
+}
+
+.parking-form,
+.leave-form {
+  padding: 30px;
+}
+.login-form,
+.signup-form {
+  padding: 0 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 3px;
+  font-weight: 600;
+  color: #333;
+  font-family: Outfit;
+  font-size: var(--font-size-md);
+}
+
+.form-input {
+  width: 100%;
+  font-family: Outfit;
+  padding: 8px 12px;
+  border: 1px solid var(--color-grey-300);
+  border-radius: 8px;
+  font-size: var(--font-size-xs);
+  transition: border 0.3s;
+  outline: none;
+}
+.form-input:focus {
+  border-color: var(--color-brand-500);
+}
+
+.form-select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--color-grey-300);
+  border-radius: 8px;
+  font-size: var(--font-size-md);
+  background-size: 1em;
+  transition: border 0.3s;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: var(--color-brand-500);
+}
+
+.parking-button,
+.leave-button,
+.login-button,
+.signup-button {
+  width: 100%;
+  font-family: Outfit;
+  padding: 12px;
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-500),
+    var(--color-brand-700)
+  );
+  color: var(--color-grey-0);
+  border: none;
+  border-radius: 8px;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.parking-button:hover,
+.leave-button:hover,
+.login-button:hover,
+.signup-button:hover {
+  transform: translateY(-2px);
+}
+
+.signup-link,
+.login-link {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: var(--font-size-md);
+  color: var(--color-grey-600);
+}
+
+.signup-link button,
+.login-link button {
+  color: var(--color-brand-700);
+  font-family: Outfit;
+  background-color: inherit;
+  cursor: pointer;
+  display: inline-block;
+  border: none;
+  font-weight: 600;
+}

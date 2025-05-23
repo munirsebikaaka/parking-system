@@ -3,14 +3,15 @@ import { HiOutlineCurrencyDollar } from "react-icons/hi";
 import { IoCall, IoCheckmarkSharp } from "react-icons/io5";
 import { MdEmail } from "react-icons/md";
 import { TbDeviceMobileCharging } from "react-icons/tb";
+import "../uniqueStyles/home.css";
 import { Link, NavLink } from "react-router-dom";
 
-const Home = () => {
+function Home() {
   return (
     <div className="home">
       {/* Hero Section */}
       <section className="hero">
-        <div className="container">
+        <div className="hero-container">
           <div className="hero-content">
             <h1>Smart Parking Solutions for Modern Cities</h1>
             <p className="lead">
@@ -18,7 +19,7 @@ const Home = () => {
               platform. Never circle the block again.
             </p>
             <div className="cta-buttons">
-              <NavLink to="/parking" className="btn btn-primary btn-lg">
+              <NavLink to="/parking" className="link">
                 Find Parking Now
               </NavLink>
             </div>
@@ -51,7 +52,7 @@ const Home = () => {
 
       {/* Features Section */}
       <section className="features">
-        <div className="container">
+        <div className="features-container">
           <div className="section-header">
             <span className="section-subtitle">Why Choose Us</span>
             <h2>Revolutionizing Urban Parking</h2>
@@ -234,37 +235,8 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* Contact Section */}
-      <section className="contact">
-        <div className="contact-info">
-          <h2>Get In Touch</h2>
-          <p>
-            Have questions or want to learn more about our solutions? Our team
-            is here to help.
-          </p>
-
-          <div className="contact-methods">
-            <div className="contact-method">
-              <MdEmail />
-
-              <span>munirsebikaaka@gmail.com</span>
-            </div>
-
-            <div className="contact-method">
-              <IoCall />
-              <span>+(256) 742083075</span>
-            </div>
-            <div className="contact-method">
-              <FaLocationDot />
-
-              <span>123 Parking , Nansana, Kpl</span>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
-};
+}
 
 export default Home;

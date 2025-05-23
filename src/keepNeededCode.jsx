@@ -287,4 +287,11 @@ const onSubmitHandler = (e) => {
   };
 
 
+  :root {
+  --pr-co: #3498db;
+  --sec-co: #333333;
+  --accent: #f1c40f;
+  --bacb: #f7f7f7f7;
+}
+
 */

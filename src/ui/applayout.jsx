@@ -5,7 +5,7 @@ import Header from "./header";
 const Applayout = () => {
   return (
     <div className="applayout">
-      <Header />
+      {/* <Header /> */}
       <Nav />
       <main className="main-section">
         <Outlet />
