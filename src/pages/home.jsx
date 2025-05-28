@@ -1,242 +1,188 @@
-import { FaLocationDot } from "react-icons/fa6";
-import { HiOutlineCurrencyDollar } from "react-icons/hi";
-import { IoCall, IoCheckmarkSharp } from "react-icons/io5";
-import { MdEmail } from "react-icons/md";
-import { TbDeviceMobileCharging } from "react-icons/tb";
+import React from "react";
 import "../uniqueStyles/home.css";
-import { Link, NavLink } from "react-router-dom";
+import Navigation from "./nav";
 
-function Home() {
+const ParkingHomepage = () => {
   return (
-    <div className="home">
+    <div className="parking-container">
+      <Navigation />
       {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-container">
-          <div className="hero-content">
-            <h1>Smart Parking Solutions for Modern Cities</h1>
-            <p className="lead">
-              Find, book, and pay for parking in seconds with our intuitive
-              platform. Never circle the block again.
-            </p>
-            <div className="cta-buttons">
-              <NavLink to="/parking" className="link">
-                Find Parking Now
-              </NavLink>
-            </div>
-          </div>
-          <div className="hero-image">
-            <img src="/img/park2.jpg" alt="Parking illustration" />
-          </div>
+      <section className="hero-section">
+        <div className="hero-content">
+          <h1 className="hero-title">Smart Parking Solutions</h1>
+          <p className="hero-subtitle">
+            Find, book, and manage parking with ease
+          </p>
+          <button className="cta-button primary">Find Parking Now</button>
         </div>
+        <img
+          className="hero-image"
+          src="img/urban-park.jpg"
+          alt="Parking garage"
+        />
       </section>
 
-      {/* Stats Section */}
-      <section className="stats-section">
-        <div className="container">
-          <div className="stats-grid">
-            <div className="stat-card">
-              <span className="stat-number">500K+</span>
-              <span className="stat-label">Happy Users</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-number">10K+</span>
-              <span className="stat-label">Parking Spots</span>
-            </div>
-            <div className="stat-card">
-              <span className="stat-number">24/7</span>
-              <span className="stat-label">Support</span>
-            </div>
+      {/* Services Section */}
+      <section className="section">
+        <h2 className="section-title">Our Services</h2>
+        <div className="services-grid">
+          <div className="service-card">
+            <div className="service-icon">🅿️</div>
+            <h3 className="service-title">Daily Parking</h3>
+            <p className="service-description">
+              Secure parking spots for your daily commute at affordable rates.
+            </p>
+          </div>
+          <div className="service-card">
+            <div className="service-icon">🏢</div>
+            <h3 className="service-title">Monthly Parking</h3>
+            <p className="service-description">
+              Reserved monthly parking spaces near your workplace or home.
+            </p>
+          </div>
+          <div className="service-card">
+            <div className="service-icon">✈️</div>
+            <h3 className="service-title">Airport Parking</h3>
+            <p className="service-description">
+              Long-term parking solutions for travelers at major airports.
+            </p>
+          </div>
+          <div className="service-card">
+            <div className="service-icon">🚗</div>
+            <h3 className="service-title">Valet Service</h3>
+            <p className="service-description">
+              Premium valet parking service for hassle-free parking experience.
+            </p>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="features">
-        <div className="features-container">
-          <div className="section-header">
-            <span className="section-subtitle">Why Choose Us</span>
-            <h2>Revolutionizing Urban Parking</h2>
-            <p className="section-description">
-              Our platform combines cutting-edge technology with user-friendly
-              design
+      <section className="feature-section">
+        <img
+          className="feature-image"
+          src="img/ev-charge.jpg"
+          alt="Parking app"
+        />
+        <div className="feature-content">
+          <h2 className="section-title">Why Choose Us</h2>
+          <ul className="feature-list">
+            <li className="feature-item">
+              <span className="feature-icon">⚡</span>
+              <p className="feature-text">Real-time parking availability</p>
+            </li>
+            <li className="feature-item">
+              <span className="feature-icon">💰</span>
+              <p className="feature-text">
+                Competitive pricing with no hidden fees
+              </p>
+            </li>
+            <li className="feature-item">
+              <span className="feature-icon">🔒</span>
+              <p className="feature-text">24/7 security monitoring</p>
+            </li>
+            <li className="feature-item">
+              <span className="feature-icon">📱</span>
+              <p className="feature-text">
+                Easy booking through our mobile app
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="stats-section">
+        <div className="stat-item">
+          <div className="stat-number">10,000+</div>
+          <div className="stat-label">Parking Spaces</div>
+        </div>
+        <div className="stat-item">
+          <div className="stat-number">500+</div>
+          <div className="stat-label">Locations</div>
+        </div>
+        <div className="stat-item">
+          <div className="stat-number">1M+</div>
+          <div className="stat-label">Happy Customers</div>
+        </div>
+        <div className="stat-item">
+          <div className="stat-number">24/7</div>
+          <div className="stat-label">Support</div>
+        </div>
+      </section>
+
+      {/* Testimonial Section */}
+      <section className="section">
+        <h2 className="section-title">What Our Customers Say</h2>
+        <div className="testimonials-grid">
+          <div className="testimonial-card">
+            <p className="testimonial-text">
+              "Finding parking downtown used to be a nightmare. Now I can
+              reserve a spot before I even leave home!"
             </p>
+            <p className="testimonial-author">- Sarah J.</p>
           </div>
-
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon">
-                <HiOutlineCurrencyDollar className="icon-item" />
-              </div>
-              <h3>Contactless Payments</h3>
-              <p>
-                Secure in-app payments with multiple options including mobile
-                and airtel money Pay.
-              </p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">
-                <IoCheckmarkSharp className="icon-item" />
-              </div>
-              <h3>Guaranteed Spots</h3>
-              <p>
-                Your reserved spot is held for you with our 15-minute grace
-                period.
-              </p>
-            </div>
-
-            <div className="feature-card">
-              <div className="feature-icon">
-                <TbDeviceMobileCharging className="icon-item" />
-              </div>
-              <h3>EV Charging</h3>
-              <p>
-                Find and reserve parking with electric vehicle charging
-                stations.
-              </p>
-            </div>
+          <div className="testimonial-card">
+            <p className="testimonial-text">
+              "The monthly parking pass has saved me so much time and money.
+              Highly recommended!"
+            </p>
+            <p className="testimonial-author">- Michael T.</p>
+          </div>
+          <div className="testimonial-card">
+            <p className="testimonial-text">
+              "Airport parking was never this easy. The valet service is worth
+              every penny."
+            </p>
+            <p className="testimonial-author">- David L.</p>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="about">
-        <div className="container">
-          <div className="about-content">
-            <span className="section-subtitle">Our Story</span>
-            <h2>Redefining Urban Mobility</h2>
-            <p>
-              Founded in 2022, ParkEase was born out of frustration with
-              traditional parking systems. Our mission is to make urban parking
-              seamless, efficient, and stress-free.
-            </p>
-            <p>
-              We combine smart technology with deep urban planning expertise to
-              create solutions that work for both drivers and cities.
-            </p>
-          </div>
-          <div className="about-image">
-            <img src="/img/workers.jpg" alt="ParkEase team" />
-          </div>
+      <section className="about-section">
+        <div className="about-content">
+          <h2 className="section-title">About Our Parking</h2>
+          <p className="about-text">
+            We're revolutionizing the parking industry with smart technology and
+            customer-focused solutions. Founded in 2015, we've grown from a
+            single parking lot to a nationwide network of premium parking
+            spaces.
+          </p>
+          <p className="about-text">
+            Our mission is to make parking stress-free, affordable, and
+            convenient for everyone. Whether you need short-term or long-term
+            parking, we've got you covered.
+          </p>
+          <button className="cta-button secondary">Learn More</button>
         </div>
+        <img
+          className="about-image"
+          src="img/parkfacility.jpg"
+          alt="Parking facility"
+        />
       </section>
 
-      {/* Testimonials */}
-      <section className="testimonials">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-subtitle">Happy Customers</span>
-            <h2>What Our Users Say</h2>
-          </div>
-
-          <div className="testimonials-grid">
-            <div className="testimonial-card">
-              <p>
-                "ParkEase has completely transformed my daily commute. I save at
-                least 15 minutes every morning!"
-              </p>
-              <div className="user">
-                <img src="/img/sarah.jpg" alt="Sarah J." />
-                <div>
-                  <h4>Sarah J.</h4>
-                  <span>Regular User</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="testimonial-card">
-              <p>
-                "The EV charging integration is brilliant. I can always find a
-                spot that meets my needs."
-              </p>
-              <div className="user">
-                <img src="/img/munir.jpg" alt="abdul munir" />
-                <div>
-                  <h4>Abdul Munir</h4>
-                  <span>EV Driver</span>
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-logo">ParkEasy</div>
+        <p className="footer-text">
+          © {new Date().getFullYear()} ParkEasy. All rights reserved.
+        </p>
+        <div className="footer-links">
+          <a href="#" className="footer-link">
+            Privacy Policy
+          </a>
+          <a href="#" className="footer-link">
+            Terms of Service
+          </a>
+          <a href="#" className="footer-link">
+            Contact Us
+          </a>
         </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="services">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-subtitle">Our Offerings</span>
-            <h2>Comprehensive Parking Solutions</h2>
-          </div>
-
-          <div className="services-grid">
-            <div className="service-card">
-              <h3>Residential Parking</h3>
-              <p>
-                Monthly parking solutions for apartment dwellers and homeowners.
-              </p>
-            </div>
-
-            <div className="service-card">
-              <h3>Commercial Parking</h3>
-              <p>Custom solutions for businesses and office buildings.</p>
-            </div>
-
-            <div className="service-card">
-              <h3>Event Parking</h3>
-              <p>Specialized parking for concerts, games, and large events.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Blog Section */}
-      <section className="blog">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-subtitle">Latest Updates</span>
-            <h2>From Our Blog</h2>
-          </div>
-
-          <div className="blog-grid">
-            <div className="blog-card">
-              <div className="blog-image">
-                <img src="/img/urban-park.jpg" alt="Urban parking solutions" />
-              </div>
-              <div className="blog-content">
-                <span className="blog-category">Technology</span>
-                <h3>How Smart Parking is Transforming Cities</h3>
-                <p>
-                  Exploring the impact of technology on urban mobility and
-                  parking infrastructure.
-                </p>
-              </div>
-            </div>
-
-            <div className="blog-card">
-              <div className="blog-image">
-                <img src="/img/ev-charge.jpg" alt="EV charging" />
-              </div>
-              <div className="blog-content">
-                <span className="blog-category">Sustainability</span>
-                <h3>The Future of EV Parking Infrastructure</h3>
-                <p>
-                  How cities are adapting parking facilities for the electric
-                  vehicle revolution.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="section-cta">
-            <Link to="/garage" className="btn btn-outline">
-              View Garage
-            </Link>
-          </div>
-        </div>
-      </section>
+      </footer>
     </div>
   );
-}
+};
 
-export default Home;
+export default ParkingHomepage;

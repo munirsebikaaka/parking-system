@@ -1,42 +1,105 @@
-import { FaCarSide, FaIdCard } from "react-icons/fa";
-import { MdAccessTime } from "react-icons/md";
-import Nav from "../features/nav";
+import "../uniqueStyles/galage.css";
 
 const Garage = () => {
-  const parkedVehicles = JSON.parse(localStorage.getItem("parkingData")) || [];
-  console.log(parkedVehicles);
+  // Sample vehicle data
+  const vehicles = [
+    {
+      id: 1,
+      plateNumber: "ABC 1234",
+      type: "Car",
+      entryTime: "10:30 AM",
+      entryDate: "2023-06-15",
+      status: "Parked",
+    },
+    {
+      id: 2,
+      plateNumber: "XYZ 5678",
+      type: "Motorcycle",
+      entryTime: "11:45 AM",
+      entryDate: "2023-06-15",
+      status: "Parked",
+    },
+    {
+      id: 3,
+      plateNumber: "DEF 9012",
+      type: "Truck",
+      entryTime: "09:15 AM",
+      entryDate: "2023-06-15",
+      status: "Parked",
+    },
+    {
+      id: 4,
+      plateNumber: "GHI 3456",
+      type: "Van",
+      entryTime: "02:20 PM",
+      entryDate: "2023-06-15",
+      status: "Parked",
+    },
+    {
+      id: 5,
+      plateNumber: "JKL 7890",
+      type: "Car",
+      entryTime: "04:05 PM",
+      entryDate: "2023-06-15",
+      status: "Parked",
+    },
+  ];
+
   return (
     <div className="garage-container">
-      <h1>Garage</h1>
-      <p>Welcome to the garage page!</p>
-      {parkedVehicles.length > 0 ? (
-        <ul className="parked-vehicles-list">
-          {parkedVehicles.map((vehicle, index) => (
-            <li key={index} className="parked-vehicle-item">
-              <div>
-                <FaIdCard />
+      <h2 className="garage-title">Current Vehicles in Garage</h2>
 
-                <p>License Plate: {vehicle.license}</p>
-              </div>
-              <div>
-                <FaCarSide />
+      <div className="garage-stats">
+        <div className="stat-card">
+          <div className="stat-value">{vehicles.length}</div>
+          <div className="stat-label">Total Vehicles</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value">
+            {vehicles.filter((v) => v.type === "Car").length}
+          </div>
+          <div className="stat-label">Cars</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value">
+            {vehicles.filter((v) => v.type === "Motorcycle").length}
+          </div>
+          <div className="stat-label">Motorcycles</div>
+        </div>
+      </div>
 
-                <p>Vehicle Type: {vehicle.vehicleType}</p>
-              </div>
-              <div>
-                <MdAccessTime />
-
-                <p>
-                  Start Time: {new Date(vehicle.startTime).toLocaleString()}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No vehicles parked in the garage.</p>
-      )}
+      <div className="vehicles-table-container">
+        <table className="vehicles-table">
+          <thead>
+            <tr>
+              <th>License Plate</th>
+              <th>Vehicle Type</th>
+              <th>Entry Date</th>
+              <th>Entry Time</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {vehicles.map((vehicle) => (
+              <tr key={vehicle.id}>
+                <td>{vehicle.plateNumber}</td>
+                <td>{vehicle.type}</td>
+                <td>{vehicle.entryDate}</td>
+                <td>{vehicle.entryTime}</td>
+                <td>
+                  <span
+                    className={`status-badge ${vehicle.status.toLowerCase()}`}
+                  >
+                    {vehicle.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
+
 export default Garage;
