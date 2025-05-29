@@ -1,4 +1,5 @@
 import VehicleExitForm from "./pages/exit";
+import ExitParkingForm from "./pages/exits";
 import Garage from "./pages/garage";
 import Homepage from "./pages/home";
 import ParkingHomepage from "./pages/home";
@@ -14,11 +15,12 @@ function App() {
       {/* <Garage /> */}
       {/* <SignupForm /> */}
       {/* <LoginForm /> */}
-      <UserAccount />
-      {/* <VehicleExitForm /> */}
+      {/* <UserAccount /> */}
+      <VehicleExitForm />
       {/* <VehicleEntryForm /> */}
       {/* <Navigation /> */}
       {/* <Homepage /> */}
+      {/* <ExitParkingForm /> */}
     </>
   );
 }

@@ -30,29 +30,6 @@
   font-family: var(--font-family);
 }
 
-.form-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.remember-me {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.forgot-password {
-  color: var(--accent-color);
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-.forgot-password:hover {
-  text-decoration: underline;
-}
-
 .auth-button {
   padding: 0.8rem;
   border: none;
