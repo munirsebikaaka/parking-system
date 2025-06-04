@@ -66,6 +66,11 @@ const UserAccount = () => {
           }
           return account;
         });
+        updatedAccounts.map(
+          (el) =>
+            el.accountID === logedInUser.accountID &&
+            setProfilePic(el.profilePic)
+        );
         localStorage.setItem("userData", JSON.stringify(updatedAccounts));
       };
       reader.readAsDataURL(ImgObj);

@@ -1,19 +1,17 @@
 :root {
-  /* Color System (60-30-10 rule) */
-  --primary-color: #2c3e50; /* 60% - Dominant color */
-  --secondary-color: #ecf0f1; /* 30% - Secondary color */
-  --accent-color: #e67e22; /* 10% - Accent color */
+  --primary-color: #2c3e50;
 
-  /* Neutral Colors */
+  --secondary-color: #ecf0f1;
+
+  --accent-color: #e67e22;
+
   --dark-text: #333;
   --medium-text: #7f8c8d;
   --light-text: #fff;
 
-  /* Typography */
   --font-family: Outfit;
   --font-size-base: 16px;
 
-  /* Spacing */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 1.5rem;
@@ -21,17 +19,14 @@
   --space-xl: 3rem;
   --space-xxl: 4rem;
 
-  /* Border Radius */
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
   --border-radius-lg: 12px;
 
-  /* Shadows */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
 
-  /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-medium: 0.3s ease;
   --transition-slow: 0.5s ease;

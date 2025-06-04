@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import "../uniqueStyles/nav.css"; // Ensure this path is correct
+import { useState } from "react";
+import "../uniqueStyles/nav.css";
+import { NavLink } from "react-router-dom";
+import { MdOutlineLocalParking } from "react-icons/md";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,17 +10,21 @@ const Navigation = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const [hours, setHours] = useState(new Date().toLocaleTimeString());
+  const updateHours = () => {
+    setHours(new Date().toLocaleTimeString());
+  };
+  setInterval(updateHours, 1000);
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        {/* Logo */}
         <div className="navbar-brand">
-          <a href="/" className="navbar-logo">
+          <NavLink to="/home" className="navbar-logo">
             ParkEasy
-          </a>
+          </NavLink>
         </div>
 
-        {/* Mobile Menu Button */}
         <button
           className={`navbar-toggle ${isMenuOpen ? "active" : ""}`}
           onClick={toggleMenu}
@@ -29,55 +35,49 @@ const Navigation = () => {
           <span className="navbar-toggle-icon"></span>
         </button>
 
-        {/* Navigation Links */}
         <div className={`navbar-menu ${isMenuOpen ? "active" : ""}`}>
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a href="/" className="nav-link">
+              <NavLink to="/home" className="nav-link">
                 Home
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a href="/entry" className="nav-link">
-                Vehicle Entry
-              </a>
+              <NavLink to="/entry" className="nav-link">
+                Entry
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a href="/exit" className="nav-link">
-                Vehicle Exit
-              </a>
+              <NavLink to="/exit" className="nav-link">
+                Exit
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a href="/garage" className="nav-link">
-                Current Garage
-              </a>
+              <NavLink to="/garage" className="nav-link">
+                Garage
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a href="/account" className="nav-link">
-                My Account
-              </a>
+              <NavLink to="/account" className="nav-link">
+                Account
+              </NavLink>
             </li>
           </ul>
 
-          {/* Auth Buttons - Visible on desktop */}
           <div className="navbar-auth">
-            <a href="/login" className="auth-button login">
-              Login
-            </a>
             <a href="/signup" className="auth-button signup">
-              Sign Up
+              {hours}
             </a>
           </div>
         </div>
 
-        {/* Auth Buttons - Visible on mobile when menu is open */}
         {isMenuOpen && (
           <div className="navbar-auth-mobile">
             <a href="/login" className="auth-button login">
               Login
             </a>
             <a href="/signup" className="auth-button signup">
-              Sign Up
+              {hours}{" "}
             </a>
           </div>
         )}

@@ -19,7 +19,7 @@
 .auth-title {
   color: var(--primary-color);
   text-align: center;
-  /* margin-bottom: 2rem; */
+  margin-bottom: 2rem;
   font-size: 1.8rem;
 }
 
@@ -85,7 +85,6 @@
   text-transform: capitalize;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .auth-card {
     padding: 1.5rem;

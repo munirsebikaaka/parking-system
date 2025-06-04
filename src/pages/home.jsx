@@ -1,19 +1,18 @@
-import React from "react";
+import { NavLink } from "react-router-dom";
 import "../uniqueStyles/home.css";
-import Navigation from "./nav";
 
 const ParkingHomepage = () => {
   return (
     <div className="parking-container">
-      <Navigation />
-      {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
           <h1 className="hero-title">Smart Parking Solutions</h1>
           <p className="hero-subtitle">
             Find, book, and manage parking with ease
           </p>
-          <button className="cta-button primary">Find Parking Now</button>
+          <NavLink to={"/entry"} className="cta-button primary">
+            Find Parking Now
+          </NavLink>
         </div>
         <img
           className="hero-image"
@@ -22,7 +21,6 @@ const ParkingHomepage = () => {
         />
       </section>
 
-      {/* Services Section */}
       <section className="section">
         <h2 className="section-title">Our Services</h2>
         <div className="services-grid">
@@ -57,7 +55,6 @@ const ParkingHomepage = () => {
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="feature-section">
         <img
           className="feature-image"
@@ -91,7 +88,6 @@ const ParkingHomepage = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="stats-section">
         <div className="stat-item">
           <div className="stat-number">10,000+</div>
@@ -111,7 +107,6 @@ const ParkingHomepage = () => {
         </div>
       </section>
 
-      {/* Testimonial Section */}
       <section className="section">
         <h2 className="section-title">What Our Customers Say</h2>
         <div className="testimonials-grid">
@@ -139,7 +134,6 @@ const ParkingHomepage = () => {
         </div>
       </section>
 
-      {/* About Section */}
       <section className="about-section">
         <div className="about-content">
           <h2 className="section-title">About Our Parking</h2>
@@ -163,7 +157,6 @@ const ParkingHomepage = () => {
         />
       </section>
 
-      {/* Footer */}
       <footer className="footer">
         <div className="footer-logo">ParkEasy</div>
         <p className="footer-text">

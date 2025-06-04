@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "../uniqueStyles/auth.css";
+import { NavLink } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({ setShowApp, setShowSignUp }) => {
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -35,7 +36,7 @@ const LoginForm = () => {
 
     setValues({ email: "", password: "" });
 
-    alert(true);
+    setShowApp(true);
   };
 
   return (
@@ -79,10 +80,10 @@ const LoginForm = () => {
           </button>
 
           <div className="auth-footer">
-            Don't have an account?{" "}
-            <a href="#" className="auth-link">
+            Don't have an account?
+            <NavLink to="/signup" className="auth-link">
               Sign up
-            </a>
+            </NavLink>
           </div>
         </form>
       </div>

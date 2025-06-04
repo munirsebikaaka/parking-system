@@ -2,6 +2,7 @@
   max-width: 1200px;
   margin: 2rem auto;
   padding: 2rem;
+  font-family: var(--font-family);
 }
 
 .garage-title {
@@ -68,19 +69,6 @@
   background-color: #f9f9f9;
 }
 
-.status-badge {
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.status-badge.parked {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-}
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .garage-container {
     padding: 1rem;

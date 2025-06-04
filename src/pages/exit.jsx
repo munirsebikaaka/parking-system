@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "../uniqueStyles/parkingForms.css";
+import { toast, ToastContainer } from "react-toastify";
+import js from "@eslint/js";
 
 const VehicleExitForm = () => {
   const [values, setValues] = useState({ license: "" });
@@ -8,7 +10,6 @@ const VehicleExitForm = () => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
-
   const startTime = () => {
     const startTime = parkingData.find(
       (el) => el.license === values.license
@@ -20,10 +21,9 @@ const VehicleExitForm = () => {
     if (!startTime()) return "nothing";
     const currentTime = new Date();
     const differenceInMilliseconds = currentTime - new Date(startTime());
-    const minutesPassed = differenceInMilliseconds / (1000 * 60 * 60);
+    const minutesPassed = differenceInMilliseconds / (1000 * 60);
     return Math.floor(minutesPassed);
   };
-
   const dayTime = () => {
     const startTime = new Date();
     const startHour = startTime.getHours();
@@ -34,6 +34,7 @@ const VehicleExitForm = () => {
     const startHour = startTime.getHours();
     return startHour >= 18 || startHour < 6;
   };
+
   const countMoneyPaid = (
     data,
     vehicle,
@@ -58,31 +59,48 @@ const VehicleExitForm = () => {
       startParkingTime < 18 &&
       data.vehicleType === vehicle
     ) {
-      parkingCoast = minutesPassed * realDayPayment;
+      parkingCoast = (minutesPassed / 60) * realDayPayment;
       console.log(
-        `u hv spent ${minutesPassed} minutes, u gona pay ${parkingCoast}`
+        `u hv spent ${(minutesPassed / 60).toFixed(
+          2
+        )} hours, u gona pay ${parkingCoast.toFixed(2)}`
       );
+
+      let leftParkingData = [];
+      leftParkingData =
+        JSON.parse(localStorage.getItem("leftParkingData")) || [];
+      const leftCar = parkingData.find(
+        (vehicle) => vehicle.license === values.license
+      );
+      leftParkingData.push(leftCar);
+      localStorage.setItem("leftParkingData", JSON.stringify(leftParkingData));
+
+      const updatedParkingData = parkingData.filter(
+        (vehicle) => vehicle.license !== values.license
+      );
+      localStorage.setItem("parkingData", JSON.stringify(updatedParkingData));
     } else if (
       isDayTime &&
       startParkingTime >= 18 &&
       data.vehicleType === vehicle
     ) {
       const timeBeforeDayTime = 18 - startParkingTime;
-      // const timeBeforeDayTimeMinutes = timeBeforeDayTime * 60;
-      const extraMinutes = minutesPassed - timeBeforeDayTime;
+      const timeBeforeDayTimeMinutes = timeBeforeDayTime * 60;
+      const extraMinutes = minutesPassed - timeBeforeDayTimeMinutes;
 
       if (extraMinutes > 0) {
         const extraParkingCost = extraMinutes * dayExtraPay;
-        // const parkingShiftTimeCost =
-        //   timeBeforeDayTimeMinutes * realNightPayment;
-        const parkingShiftTimeCost = timeBeforeDayTime * realNightPayment;
+        const parkingShiftTimeCost =
+          timeBeforeDayTimeMinutes * realNightPayment;
         parkingCoast = extraParkingCost + parkingShiftTimeCost;
       } else {
         parkingCoast = minutesPassed * realNightPayment;
       }
 
       console.log(
-        `u hv spent ${minutesPassed} minutes, u gona pay ${parkingCoast}`
+        `u hv spent ${(minutesPassed / 60).toFixed(
+          2
+        )} hours, u gona pay ${parkingCoast.toFixed(2)}`
       );
     } else if (
       isDayTime &&
@@ -90,21 +108,22 @@ const VehicleExitForm = () => {
       data.vehicleType === vehicle
     ) {
       const timeBeforeDayTime = 6 - startParkingTime;
-      // const timeBeforeDayTimeMinutes = timeBeforeDayTime * 60;
-      const extraMinutes = minutesPassed - timeBeforeDayTime;
+      const timeBeforeDayTimeMinutes = timeBeforeDayTime * 60;
+      const extraMinutes = minutesPassed - timeBeforeDayTimeMinutes;
 
       if (extraMinutes > 0) {
         const extraParkingCost = extraMinutes * dayExtraPay;
-        // const parkingShiftTimeCost =
-        //   timeBeforeDayTimeMinutes * realNightPayment;
-        const parkingShiftTimeCost = timeBeforeDayTime * realNightPayment;
+        const parkingShiftTimeCost =
+          timeBeforeDayTimeMinutes * realNightPayment;
         parkingCoast = extraParkingCost + parkingShiftTimeCost;
       } else {
         parkingCoast = minutesPassed * realNightPayment;
       }
 
       console.log(
-        `u hv spent ${minutesPassed} minutes, u gona pay ${parkingCoast}`
+        `u hv spent ${(minutesPassed / 60).toFixed(
+          2
+        )} hours, u gona pay ${parkingCoast.toFixed(2)}`
       );
     } else if (
       isNightTime &&
@@ -113,7 +132,9 @@ const VehicleExitForm = () => {
     ) {
       parkingCoast = minutesPassed * realNightPayment;
       console.log(
-        `u hv spent ${minutesPassed} minutes, u gona pay ${parkingCoast}`
+        `u hv spent ${(minutesPassed / 60).toFixed(
+          2
+        )} hours, u gona pay ${parkingCoast.toFixed(2)}`
       );
     } else if (
       isNightTime &&
@@ -122,7 +143,9 @@ const VehicleExitForm = () => {
     ) {
       parkingCoast = minutesPassed * realNightPayment;
       console.log(
-        `u hv spent ${minutesPassed} minutes, u gona pay ${parkingCoast}`
+        `u hv spent ${(minutesPassed / 60).toFixed(
+          2
+        )} hours, u gona pay ${parkingCoast.toFixed(2)}`
       );
     } else if (
       isNightTime &&
@@ -131,23 +154,25 @@ const VehicleExitForm = () => {
       data.vehicleType === vehicle
     ) {
       const timeBeforeNightTime = 18 - startParkingTime;
-      // const timeBeforeNightTimeMinutes = Math.abs(timeBeforeNightTime * 60);
-      const extraMinutes = minutesPassed - timeBeforeNightTime;
+      const timeBeforeNightTimeMinutes = Math.abs(timeBeforeNightTime * 60);
+      const extraMinutes = minutesPassed - timeBeforeNightTimeMinutes;
       if (extraMinutes > 0) {
         const extraParkingCost = extraMinutes * nightExtraPay;
-        // const parkingShiftTimeCost =
-        //   timeBeforeNightTimeMinutes * realDayPayment;
-        const parkingShiftTimeCost = timeBeforeNightTime * realDayPayment;
+        const parkingShiftTimeCost =
+          timeBeforeNightTimeMinutes * realDayPayment;
         parkingCoast = extraParkingCost + parkingShiftTimeCost;
       } else {
         parkingCoast = minutesPassed * realDayPayment;
       }
 
       console.log(
-        `u hv spent ${minutesPassed} minutes, u gona pay ${parkingCoast}`
+        `u hv spent ${(minutesPassed / 60).toFixed(
+          2
+        )} hours, u gona pay ${parkingCoast.toFixed(2)}`
       );
     }
   };
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const { license } = values;
@@ -162,8 +187,14 @@ const VehicleExitForm = () => {
       alert("License plate not found");
     }
   };
+
   return (
     <div className="form-container">
+      <ToastContainer
+        position="top-center"
+        style={{ fontSize: "1px", fontFamily: "Outfit" }}
+      />
+
       <h2 className="form-title">Vehicle Exit</h2>
       <form className="parking-form" onSubmit={onSubmitHandler}>
         <div className="form-group">
