@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../uniqueStyles/auth.css";
-import { IoCloseSharp } from "react-icons/io5";
+import { IoCloseSharp, IoEye, IoEyeOffSharp } from "react-icons/io5";
 import { IoMdCheckmark } from "react-icons/io";
 import {
   isLowerCaseAdded,
@@ -9,7 +9,7 @@ import {
   isNumsAdded,
 } from "../services/passwordStrength/passwordStrength";
 
-const SignupForm = () => {
+const SignupForm = ({ setShowApp, setToggleRegstration }) => {
   const [values, setValues] = useState({
     fullname: "",
     email: "",
@@ -21,6 +21,9 @@ const SignupForm = () => {
   const [signEmailError, setSignEmailError] = useState("");
   const [signPasswordError, setSignPasswordError] = useState("");
   const [cormfirmPasswordError, setComfirmPasswordError] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,6 +68,7 @@ const SignupForm = () => {
       managerCode: email.slice(0, 7) == "0742256" && email.slice(0, 7),
     });
     localStorage.setItem("userData", JSON.stringify(userData));
+    setShowApp(true);
     setValues({
       fullname: "",
       email: "",
@@ -78,11 +82,9 @@ const SignupForm = () => {
         <h2 className="auth-title">Create New Account</h2>
 
         <form className="auth-form" onSubmit={onSubmitHandler}>
-          <p className="namesErr">{nameError}</p>
-          <p className="emailErr">{signEmailError}</p>
-          <p className="passwordErr">{signPasswordError}</p>
-          <p className="repeatPasswordErr">{cormfirmPasswordError}</p>
           <div className="form-group">
+            <p className="namesErr">{nameError}</p>
+
             <label htmlFor="signupName" className="form-label">
               Full Name
             </label>
@@ -103,6 +105,8 @@ const SignupForm = () => {
           </div>
 
           <div className="form-group">
+            <p className="emailErr">{signEmailError}</p>
+
             <label htmlFor="signupEmail" className="form-label">
               Email Address
             </label>
@@ -123,11 +127,23 @@ const SignupForm = () => {
           </div>
 
           <div className="form-group">
+            <p className="passwordErr">{signPasswordError}</p>
+            {showPassword ? (
+              <IoEye
+                className="signup-password-eye"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            ) : (
+              <IoEyeOffSharp
+                className="signup-password-eye"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
             <label htmlFor="signupPassword" className="form-label">
               Password
             </label>
             <input
-              type="password"
+              type={!showPassword ? "password" : "text"}
               name="password"
               value={values.password}
               onChange={handleChange}
@@ -249,11 +265,23 @@ const SignupForm = () => {
           </div>
 
           <div className="form-group">
+            <p className="repeatPasswordErr">{cormfirmPasswordError}</p>
+            {showConfirmPassword ? (
+              <IoEye
+                className="signup-confirm-password-eye"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              />
+            ) : (
+              <IoEyeOffSharp
+                className="signup-confirm-password-eye"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              />
+            )}
             <label htmlFor="signupConfirmPassword" className="form-label">
               Confirm Password
             </label>
             <input
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               name="confirmPassword"
               value={values.confirmPassword}
               onChange={handleChange}
@@ -274,7 +302,11 @@ const SignupForm = () => {
 
           <div className="auth-footer">
             Already have an account?
-            <a href="#" className="auth-link">
+            <a
+              onClick={() => setToggleRegstration(false)}
+              href="#"
+              className="auth-link"
+            >
               Login
             </a>
           </div>

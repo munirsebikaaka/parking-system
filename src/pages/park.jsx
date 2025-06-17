@@ -13,9 +13,13 @@ const VehicleEntryForm = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const { license, vehicleType } = values;
-    if (!license) return alert("Please enter your license plate number");
+    if (!license)
+      return setLicenseError("Please enter your license plate number");
+    setLicenseError("");
 
-    if (!vehicleType) return alert("Please select your vehicle type");
+    if (!vehicleType)
+      return setVehicleTypeError("Please select your vehicle type");
+    setVehicleTypeError("");
 
     let parkingData = [];
     parkingData = JSON.parse(localStorage.getItem("parkingData")) || [];
@@ -33,6 +37,7 @@ const VehicleEntryForm = () => {
       <h2 className="form-title">Vehicle Entry</h2>
       <form className="parking-form" onSubmit={onSubmitHandler}>
         <div className="form-group">
+          <p className="error-park-lincense">{licenseErorr}</p>
           <label htmlFor="plateNumber" className="form-label">
             License Plate Number
           </label>
@@ -44,10 +49,16 @@ const VehicleEntryForm = () => {
             id="plateNumber"
             className="form-input"
             placeholder=" ABC 1234"
+            style={
+              licenseErorr.length > 0
+                ? { border: "1px solid  #991b1b" }
+                : { border: "1px solid #d1d5db" }
+            }
           />
         </div>
 
         <div className="form-group">
+          <p className="error-park-type">{vehicleTypeErorr}</p>
           <label htmlFor="vehicleType" className="form-label">
             Vehicle Type
           </label>
@@ -57,6 +68,11 @@ const VehicleEntryForm = () => {
             name="vehicleType"
             onChange={handleChange}
             value={values.vehicleType}
+            style={
+              vehicleTypeErorr.length > 0
+                ? { border: "1px solid  #991b1b" }
+                : { border: "1px solid #d1d5db" }
+            }
           >
             <option value="">Select vehicle type</option>
             <option value="car">Car</option>

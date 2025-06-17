@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "../uniqueStyles/nav.css";
 import { NavLink } from "react-router-dom";
-import { MdOutlineLocalParking } from "react-icons/md";
+
+import { IoClose, IoMenu } from "react-icons/io5";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,9 +31,11 @@ const Navigation = () => {
           onClick={toggleMenu}
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggle-icon"></span>
-          <span className="navbar-toggle-icon"></span>
-          <span className="navbar-toggle-icon"></span>
+          {isMenuOpen ? (
+            <IoClose className="res-icon" />
+          ) : (
+            <IoMenu className="res-icon" />
+          )}
         </button>
 
         <div className={`navbar-menu ${isMenuOpen ? "active" : ""}`}>
@@ -65,20 +68,13 @@ const Navigation = () => {
           </ul>
 
           <div className="navbar-auth">
-            <a href="/signup" className="auth-button signup">
-              {hours}
-            </a>
+            <p className="auth-button signup">{hours}</p>
           </div>
         </div>
 
         {isMenuOpen && (
           <div className="navbar-auth-mobile">
-            <a href="/login" className="auth-button login">
-              Login
-            </a>
-            <a href="/signup" className="auth-button signup">
-              {hours}{" "}
-            </a>
+            <p className="auth-button signup">{hours}</p>
           </div>
         )}
       </div>

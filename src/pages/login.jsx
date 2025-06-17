@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "../uniqueStyles/auth.css";
-import { NavLink } from "react-router-dom";
+import { IoEye, IoEyeOffSharp } from "react-icons/io5";
 
-const LoginForm = ({ setShowApp, setShowSignUp }) => {
+const LoginForm = ({ setShowApp, setToggleRegstration }) => {
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -17,22 +17,24 @@ const LoginForm = ({ setShowApp, setShowSignUp }) => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const { email, password } = values;
-    if (!email) return alert("Please enter your email address");
+    if (!email) return setEmailError("Please enter your email address");
 
-    if (!password) return alert("Please enter your password");
+    if (!password) return setPasswordError("Please enter your password");
 
     let userData = JSON.parse(localStorage.getItem("userData"));
     console.log(userData);
-    if (!userData) return alert("No user data found. Please sign up first.");
+    if (!userData)
+      return setEmailError("No user data found. Please sign up first.");
     const user = userData.find((user) => user.email === email);
 
-    if (!user) return alert("Invalid email");
+    if (!user) return setEmailError("Invalid email");
     const { password: userPassword, managerCode } = user;
 
     localStorage.setItem("managerCode", managerCode);
     localStorage.setItem("logedInEmail", user.email);
+    localStorage.setItem("accountID", user.accountID);
 
-    if (userPassword !== password) return alert("Wrong password!");
+    if (userPassword !== password) return setPasswordError("Wrong password!");
 
     setValues({ email: "", password: "" });
 
@@ -46,6 +48,7 @@ const LoginForm = ({ setShowApp, setShowSignUp }) => {
 
         <form className="auth-form" onSubmit={onSubmitHandler}>
           <div className="form-group">
+            <p className="login-email-error">{emailError}</p>
             <label htmlFor="loginEmail" className="form-label">
               Email Address
             </label>
@@ -57,21 +60,43 @@ const LoginForm = ({ setShowApp, setShowSignUp }) => {
               id="loginEmail"
               className="form-input"
               placeholder="munir@example.com"
+              style={
+                emailError.length > 0
+                  ? { border: "1px solid  #991b1b" }
+                  : { border: "1px solid #d1d5db" }
+              }
             />
           </div>
 
           <div className="form-group">
+            <p className="login-password-error">{passwordError}</p>
+            {showPassword ? (
+              <IoEye
+                className="login-password-eye"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            ) : (
+              <IoEyeOffSharp
+                className="login-password-eye"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
             <label htmlFor="loginPassword" className="form-label">
               Password
             </label>
             <input
-              type="password"
+              type={!showPassword ? "password" : "text"}
               name="password"
               onChange={handleChange}
               value={values.password}
               id="loginPassword"
               className="form-input"
               placeholder="••••••••"
+              style={
+                passwordError.length > 0
+                  ? { border: "1px solid  #991b1b" }
+                  : { border: "1px solid #d1d5db" }
+              }
             />
           </div>
 
@@ -81,9 +106,13 @@ const LoginForm = ({ setShowApp, setShowSignUp }) => {
 
           <div className="auth-footer">
             Don't have an account?
-            <NavLink to="/signup" className="auth-link">
+            <a
+              onClick={() => setToggleRegstration(true)}
+              href="#"
+              className="auth-link"
+            >
               Sign up
-            </NavLink>
+            </a>
           </div>
         </form>
       </div>

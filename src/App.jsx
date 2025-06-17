@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [showApp, setShowApp] = useState(false);
+  const [toggleRegstration, setToggleRegstration] = useState(false);
   useEffect(() => {
     if (showApp) {
       localStorage.setItem("showApp", true);
@@ -34,7 +35,19 @@ function App() {
               showApp ? (
                 <Applayout />
               ) : (
-                <LoginForm setShowApp={setShowApp} setShowSignUp={setShowApp} />
+                <>
+                  {toggleRegstration ? (
+                    <SignupForm
+                      setShowApp={setShowApp}
+                      setToggleRegstration={setToggleRegstration}
+                    />
+                  ) : (
+                    <LoginForm
+                      setShowApp={setShowApp}
+                      setToggleRegstration={setToggleRegstration}
+                    />
+                  )}
+                </>
               )
             }
           >
@@ -47,10 +60,10 @@ function App() {
             <Route path="garage" element={<Garage />} />
             <Route path="account" element={<UserAccount />} />
           </Route>
-          <Route
+          {/* <Route
             path="signup"
             element={<SignupForm setShowApp={setShowApp} />}
-          />
+          /> */}
           <Route path="*" element={<h1>no page found):</h1>} />
         </Routes>
       </BrowserRouter>
