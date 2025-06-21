@@ -7,7 +7,7 @@ import ParkingHomepage from "./pages/home";
 import LoginForm from "./pages/login";
 import VehicleEntryForm from "./pages/park";
 import SignupForm from "./pages/signup";
-import UserAccount from "./pages/userAccount";
+
 import Applayout from "./pages/applayout";
 import { useEffect, useState } from "react";
 
@@ -58,12 +58,8 @@ function App() {
             <Route path="exit" element={<VehicleExitForm />} />
 
             <Route path="garage" element={<Garage />} />
-            <Route path="account" element={<UserAccount />} />
           </Route>
-          {/* <Route
-            path="signup"
-            element={<SignupForm setShowApp={setShowApp} />}
-          /> */}
+
           <Route path="*" element={<h1>no page found):</h1>} />
         </Routes>
       </BrowserRouter>
